@@ -1,5 +1,8 @@
 //pre-defined imports
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:student_app/models/student_login_model.dart';
+import 'package:student_app/views/login/login_page.dart';
 // import 'package:flutter/src/widgets/container.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 
@@ -7,7 +10,11 @@ import 'package:flutter/material.dart';
 import '../../utils/configurations.dart';
 
 class UserPage extends StatelessWidget {
-  const UserPage({super.key});
+  const UserPage({
+    super.key,
+  });
+
+  // final StudentLoginModel _user;
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +35,30 @@ class UserPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-              padding: EdgeInsets.all(deviceWidth * 0.05),
-              iconSize: deviceHeight * 0.05,
-              onPressed: () {},
-              icon: Icon(
-                Icons.account_circle,
-              ))
+            padding: EdgeInsets.all(deviceWidth * 0.05),
+            iconSize: deviceHeight * 0.05,
+            onPressed: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.remove("token");
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.logout,
+            ),
+          ),
+          // IconButton(
+          //     padding: EdgeInsets.all(deviceWidth * 0.05),
+          //     iconSize: deviceHeight * 0.05,
+          //     onPressed: () {},
+          //     icon: Icon(
+          //       Icons.account_profile,
+          //     ))
         ],
       ),
       body: Container(

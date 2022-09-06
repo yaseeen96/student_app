@@ -7,7 +7,17 @@ import '../../widgets/custom_text_form_field.dart';
 import '../../services/register_service.dart';
 
 class SignupPagetwo extends StatelessWidget {
-  SignupPagetwo({super.key});
+  SignupPagetwo(
+      {super.key,
+      required this.name,
+      required this.usn,
+      required this.semester,
+      required this.department});
+
+  final TextEditingController name;
+  final TextEditingController usn;
+  final TextEditingController semester;
+  final TextEditingController department;
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
@@ -68,7 +78,16 @@ class SignupPagetwo extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.popAndPushNamed(context, '/login');
+                      // print(email.text);
+                      _register.StudentRegister(
+                          email.text,
+                          name.text,
+                          usn.text,
+                          department.text,
+                          semester.text,
+                          password.text,
+                          confirmPassword.text);
+                      Navigator.popAndPushNamed(context, '/');
                     },
                     child: Text(
                       "Next",

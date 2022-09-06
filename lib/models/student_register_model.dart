@@ -5,6 +5,7 @@ class StudentRegisterModel {
   String? department;
   String? semester;
   String? password;
+  String? password2;
 
   StudentRegisterModel(
       {this.email,
@@ -12,7 +13,8 @@ class StudentRegisterModel {
       this.usn,
       this.department,
       this.semester,
-      this.password});
+      this.password,
+      this.password2});
 
   StudentRegisterModel.fromJson(Map<String, dynamic> json) {
     email = json['email'];
@@ -21,6 +23,7 @@ class StudentRegisterModel {
     department = json['department'];
     semester = json['semester'];
     password = json['password'];
+    password2 = json['password2'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +34,7 @@ class StudentRegisterModel {
     data['department'] = this.department;
     data['semester'] = this.semester;
     data['password'] = this.password;
+    data['password2'] = this.password2;
 
     return data;
   }
@@ -43,6 +47,7 @@ class StudentRegisterModel {
       department: map['department']?.toString() ?? '',
       semester: map['semester']?.toString() ?? '',
       password: map['password']?.toString() ?? '',
+      password2: map['password2']?.toString() ?? '',
     );
   }
 }

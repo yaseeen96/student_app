@@ -1,5 +1,6 @@
 //pre-defined
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_app/views/signup/signup_page.dart';
 import 'package:student_app/widgets/custombutton.dart';
 
@@ -9,6 +10,9 @@ import '../user/user_page.dart';
 import '../../utils/configurations.dart';
 import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/cse_logo.dart';
+import '../../models/student_login_model.dart';
+import '../../services/login_service.dart';
+import '../../interfaces/login_interface.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController email = new TextEditingController();
   TextEditingController password = new TextEditingController();
   var isPassword = false;
+  final Login _login = UserLogin();
   @override
   Widget build(BuildContext context) {
     final deviceWidth = getDeviceWidth(context);
@@ -60,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                 controllerName: "Email",
               ),
               SizedBox(
-                height: deviceHeight * 0.05,
+                height: deviceHeight * 0.03,
               ),
               CustomTextFormField(
                 isPassword: true,
@@ -68,14 +73,39 @@ class _LoginPageState extends State<LoginPage> {
                 controllerName: "Password",
               ),
               SizedBox(
-                height: deviceHeight * 0.05,
+                height: deviceHeight * 0.01,
+              ),
+              TextButton(
+                onPressed: () {
+                  // print(email.text);
+
+                  Navigator.popAndPushNamed(context, '/');
+                },
+                child: Text(
+                  "Forgot Password?",
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: deviceHeight * 0.01,
               ),
               SizedBox(
                 width: deviceWidth * 0.8,
                 height: deviceHeight * 0.07,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
+                  onPressed: () async {
+                    //api request part
+                    StudentLoginModel? user =
+                        await _login.StudentLogin(email.text, password.text);
+
+                    //user session management part
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString("token", user.token!);
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => UserPage(),
@@ -93,13 +123,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              // customButton(
-              //   deviceHeight: deviceHeight,
-              //   deviceWidth: deviceWidth,
-              //   text: "Login",
-              //   onPressPage: "/",
-              // ),
-
               SizedBox(
                 height: 25,
               ),
