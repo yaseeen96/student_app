@@ -72,25 +72,24 @@ class _LoginPageState extends State<LoginPage> {
                 controller: password,
                 controllerName: "Password",
               ),
-              SizedBox(
-                height: deviceHeight * 0.01,
-              ),
-              TextButton(
-                onPressed: () {
-                  // print(email.text);
-
-                  Navigator.popAndPushNamed(context, '/');
-                },
-                child: Text(
-                  "Forgot Password?",
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 16,
+              Align(
+                alignment: Alignment.centerLeft,
+                widthFactor: 2.1,
+                child: TextButton(
+                  onPressed: () {
+                    null;
+                  },
+                  child: Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
               SizedBox(
-                height: deviceHeight * 0.01,
+                height: deviceHeight * 0.02,
               ),
               SizedBox(
                 width: deviceWidth * 0.8,
