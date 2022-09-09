@@ -65,9 +65,10 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
       ),
       body: Container(
         height: deviceHeight,
-        child: ListView(
+        child: Column(
           children: [
             TabBar(
+              isScrollable: true,
               unselectedLabelColor: Colors.grey,
               labelColor: Theme.of(context).primaryColor,
               controller: _tabBarContoller,
@@ -76,13 +77,16 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                 Tab(text: "Completed"),
               ],
             ),
-            // TabBarView(
-            //   controller: _tabBarContoller,
-            //   children: [
-            //     Upcoming(),
-            //     Completed(),
-            //   ],
-            // ),
+            Container(
+              height: deviceHeight * 0.7,
+              child: TabBarView(
+                controller: _tabBarContoller,
+                children: [
+                  Upcoming(),
+                  Completed(),
+                ],
+              ),
+            ),
           ],
         ),
       ),
