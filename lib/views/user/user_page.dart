@@ -46,7 +46,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
           "Welcome, Yaseen",
           style: TextStyle(
               color: Theme.of(context).primaryColor,
-              fontSize: 2.5 * unitHeightValue,
+              fontSize: 2.2 * unitHeightValue,
               fontWeight: FontWeight.bold),
         ),
         actions: [
@@ -55,10 +55,11 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
             onPressed: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => UserSettingsPage())),
             icon: Icon(
+              color: Theme.of(context).primaryColor,
               Icons.account_circle,
               // size: 40,
             ),
-            iconSize: deviceHeight * 0.06,
+            iconSize: deviceHeight * 0.05,
             color: Colors.black,
           )
         ],
@@ -68,14 +69,37 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
         child: Column(
           children: [
             TabBar(
+              indicatorWeight: 2,
+              indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: Theme.of(context).primaryColor),
+              indicatorColor: Theme.of(context).primaryColor,
               isScrollable: true,
+              indicatorSize: TabBarIndicatorSize.label,
               unselectedLabelColor: Colors.grey,
-              labelColor: Theme.of(context).primaryColor,
+              labelColor: Theme.of(context).highlightColor,
               controller: _tabBarContoller,
               tabs: [
-                Tab(text: "Upcoming"),
-                Tab(text: "Completed"),
+                Tab(
+                  // text: "Upcoming",
+                  child: Padding(
+                    child: Text("Upcoming"),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: getDeviceWidth(context) * 0.08),
+                  ),
+                ),
+                Tab(
+                  // text: "Upcoming",
+                  child: Padding(
+                    child: Text("Completed"),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: getDeviceWidth(context) * 0.08),
+                  ),
+                ),
               ],
+            ),
+            SizedBox(
+              height: deviceHeight * 0.02,
             ),
             Container(
               height: deviceHeight * 0.7,
@@ -105,6 +129,7 @@ class Upcoming extends StatelessWidget {
     return Container(
       // height: getDeviceHeight(context) * .4,
       child: ListView(
+        scrollDirection: Axis.vertical,
         children: [
           EventFeed(
             deviceWidth: deviceWidth,
