@@ -6,6 +6,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:student_app/utils/configurations.dart';
 import 'package:student_app/views/login/login_page.dart';
 import 'package:student_app/widgets/read_only_text_field.dart';
+import 'package:wiredash/wiredash.dart';
 
 class UserSettingsPage extends StatefulWidget {
   UserSettingsPage({super.key});
@@ -15,48 +16,15 @@ class UserSettingsPage extends StatefulWidget {
 }
 
 class _UserSettingsPageState extends State<UserSettingsPage> {
-  var isSwitched = false;
-  var darkMode = false;
-
-  void toggleSwitch(bool value) {
-    if (isSwitched == true) {
-      setState(() {
-        isSwitched = false;
-        darkMode = false;
-      });
-    } else {
-      setState(() {
-        isSwitched = true;
-        darkMode = true;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).highlightColor,
-      appBar: AppBar(
-        title: Text(
-          "Account",
-          style: TextStyle(color: Colors.black),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: InkWell(
-          onTap: () => Navigator.pop(context, true),
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-        ),
-        actions: [],
-      ),
       body: SlidingUpPanel(
         parallaxEnabled: true,
         parallaxOffset: 0.12,
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-        maxHeight: getDeviceHeight(context) * 0.85,
+        maxHeight: getDeviceHeight(context),
         minHeight: getDeviceHeight(context) * 0.29,
         color: Theme.of(context).primaryColor,
         panelBuilder: (controller) {
@@ -168,202 +136,272 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
             ],
           );
         },
-        body: Container(
-          padding: EdgeInsets.all(32),
-          child: Column(
-            children: [
-              SizedBox(
-                height: getDeviceHeight(context) * 0.03,
+        body: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: getDeviceWidth(context) * 0.04),
+              child: AppBar(
+                leading: IconButton(
+                  color: Theme.of(context).primaryColor,
+                  icon: Icon(Icons.arrow_back_rounded),
+                  onPressed: () => Navigator.pop(context, true),
+                ),
+                centerTitle: true,
+                // automaticallyImplyLeading: true,
+                title: Text(
+                  "Preferences",
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24),
+                ),
+                elevation: 0,
+                backgroundColor: Theme.of(context).highlightColor,
+                // leading: InkWell(
+                //   onTap: () => Navigator.pop(context, true),
+                //   child: Icon(
+                //     Icons.arrow_back_ios,
+                //     color: Theme.of(context).primaryColor,
+                //   ),
+                // ),
+                //
               ),
+            ),
+            Container(
+              padding: EdgeInsets.all(getDeviceWidth(context) * 0.08),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: getDeviceHeight(context) * 0.03,
+                  ),
 
-              // SizedBox(
-              //   height: getDeviceHeight(context) * 0.08,
-              // ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.dark_mode_rounded,
-                    color: Theme.of(context).primaryColor,
-                    size: 30,
-                  ),
-                  SizedBox(
-                    width: getDeviceWidth(context) * 0.04,
-                  ),
-                  Text(
-                    "Dark Mode",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: getDeviceWidth(context) * 0.35,
-                  ),
-                  Switch(
-                    value: isSwitched,
-                    onChanged: toggleSwitch,
-                    activeColor: Theme.of(context).highlightColor,
-                    inactiveThumbColor: Theme.of(context).primaryColor,
-                    inactiveTrackColor: Colors.black26,
-                    activeTrackColor: Colors.black26,
-                  )
-                ],
-              ),
-              SizedBox(
-                height: getDeviceHeight(context) * 0.05,
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.notifications,
-                    color: Theme.of(context).primaryColor,
-                    size: 30,
-                  ),
-                  SizedBox(
-                    width: getDeviceWidth(context) * 0.04,
-                  ),
-                  Text(
-                    "Notification",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: getDeviceWidth(context) * 0.34,
-                  ),
-                  InkWell(
-                    onTap: null,
-                    // onTap: () => Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => UserNotificationPage(),
-                    //   ),
-                    // ),
-                    child: Icon(
-                      color: Colors.black26,
-                      Icons.keyboard_arrow_right,
-                      size: 40,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: getDeviceHeight(context) * 0.05,
-              ),
+                  // SizedBox(
+                  //   height: getDeviceHeight(context) * 0.08,
+                  // ),
 
-              Row(
-                children: [
-                  Icon(
-                    Icons.info_rounded,
-                    color: Theme.of(context).primaryColor,
-                    size: 30,
-                  ),
-                  SizedBox(
-                    width: getDeviceWidth(context) * 0.04,
-                  ),
-                  Text(
-                    "About",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: getDeviceWidth(context) * 0.46,
-                  ),
-                  InkWell(
-                    onTap: null,
-                    // onTap: () => Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => AboutPage(),
-                    //   ),
-                    // ),
-                    child: Icon(
-                      color: Colors.black26,
-                      Icons.keyboard_arrow_right,
-                      size: 40,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: getDeviceHeight(context) * 0.05,
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.lock_rounded,
-                    color: Theme.of(context).primaryColor,
-                    size: 30,
-                  ),
-                  SizedBox(
-                    width: getDeviceWidth(context) * 0.04,
-                  ),
-                  Text(
-                    "Logout",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: getDeviceWidth(context) * 0.44,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text("Logout"),
-                          content: Text(
-                            "Are you sure?",
+                  Container(
+                    width: getDeviceWidth(context),
+                    height: getDeviceHeight(context) * 0.05,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: getDeviceWidth(context) * 0.4,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.notifications,
+                                color: Theme.of(context).primaryColor,
+                                size: 30,
+                              ),
+                              SizedBox(
+                                width: getDeviceWidth(context) * 0.04,
+                              ),
+                              Text(
+                                "Notification",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(),
-                              child: Text(
-                                "No",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(),
-                              child: Text(
-                                "",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(),
-                              child: Text(
-                                "",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                prefs.remove("token");
-                                Navigator.popAndPushNamed(context, "/login");
-                              },
-                              child: Text(
-                                "Yes",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                            )
-                          ],
                         ),
-                      );
-                    },
-                    child: Icon(
-                      color: Colors.black26,
-                      Icons.keyboard_arrow_right,
-                      size: 40,
+                        IconButton(
+                          onPressed: null,
+                          color: Theme.of(context).primaryColor,
+                          icon: Icon(Icons.keyboard_arrow_right),
+                          iconSize: 40,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: getDeviceHeight(context) * 0.02,
+                  ),
+                  Container(
+                    width: getDeviceWidth(context),
+                    height: getDeviceHeight(context) * 0.05,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: getDeviceWidth(context) * 0.4,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.info_rounded,
+                                color: Theme.of(context).primaryColor,
+                                size: 30,
+                              ),
+                              SizedBox(
+                                width: getDeviceWidth(context) * 0.04,
+                              ),
+                              Text(
+                                "About",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: null,
+                          color: Theme.of(context).primaryColor,
+                          icon: Icon(Icons.keyboard_arrow_right),
+                          iconSize: 40,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: getDeviceHeight(context) * 0.02,
+                  ),
+                  Container(
+                    width: getDeviceWidth(context),
+                    height: getDeviceHeight(context) * 0.05,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: getDeviceWidth(context) * 0.4,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.feedback_rounded,
+                                color: Theme.of(context).primaryColor,
+                                size: 30,
+                              ),
+                              SizedBox(
+                                width: getDeviceWidth(context) * 0.04,
+                              ),
+                              Text(
+                                "Send Feedback",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Wiredash.of(context).show();
+                          },
+                          color: Theme.of(context).primaryColor,
+                          icon: Icon(Icons.keyboard_arrow_right),
+                          iconSize: 40,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: getDeviceHeight(context) * 0.02,
+                  ),
+                  Container(
+                    width: getDeviceWidth(context),
+                    height: getDeviceHeight(context) * 0.05,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: getDeviceWidth(context) * 0.4,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.lock_rounded,
+                                color: Theme.of(context).primaryColor,
+                                size: 30,
+                              ),
+                              SizedBox(
+                                width: getDeviceWidth(context) * 0.04,
+                              ),
+                              Text(
+                                "Logout",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text("Logout"),
+                                content: Text(
+                                  "Are you sure?",
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                    child: Text(
+                                      "No",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                    child: Text(
+                                      "",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                    child: Text(
+                                      "",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () async {
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+                                      prefs.remove("token");
+                                      Navigator.popAndPushNamed(
+                                          context, "/login");
+                                    },
+                                    child: Text(
+                                      "Yes",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                          color: Theme.of(context).primaryColor,
+                          icon: Icon(Icons.keyboard_arrow_right),
+                          iconSize: 40,
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
