@@ -9,7 +9,8 @@ class UserLogin extends Login {
     String password,
   ) async {
     try {
-      final url = "http://127.0.0.1:8000/studentapi/student/login/";
+      const url =
+          "https://c08gjwvlm3.execute-api.ap-south-1.amazonaws.com/student/studentapi/student/login/";
       final data = {
         "email": email,
         "password": password,

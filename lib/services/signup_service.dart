@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:student_app/interfaces/register_interface.dart';
+import 'package:student_app/interfaces/signup_interface.dart';
 
-class UserRegister extends Register {
+class UserSignup extends Signup {
   @override
-  void StudentRegister(
+  void StudentSignup(
       String email,
       String studentName,
       String usn,
@@ -12,7 +12,8 @@ class UserRegister extends Register {
       String password,
       String password2) async {
     try {
-      final url = "http://127.0.0.1:8000/studentapi/student/register/";
+      const url =
+          "https://c08gjwvlm3.execute-api.ap-south-1.amazonaws.com/student/studentapi/student/register/";
       final data = {
         "email": email,
         "studentName": studentName,

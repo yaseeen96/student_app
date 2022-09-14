@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:student_app/interfaces/profile_interface.dart';
+import 'package:student_app/models/student_profile_model.dart';
+import 'package:student_app/services/profile_service.dart';
 
 import 'package:student_app/utils/configurations.dart';
 import 'package:student_app/views/login/login_page.dart';
@@ -9,13 +13,28 @@ import 'package:student_app/widgets/read_only_text_field.dart';
 import 'package:wiredash/wiredash.dart';
 
 class UserSettingsPage extends StatefulWidget {
-  UserSettingsPage({super.key});
+  const UserSettingsPage({super.key});
 
   @override
   State<UserSettingsPage> createState() => _UserSettingsPageState();
 }
 
 class _UserSettingsPageState extends State<UserSettingsPage> {
+  late StudentProfileModel profileData;
+  late Future<StudentProfileModel> _userData;
+  final Profile _profile = StudentProfile();
+
+  // void getprofile() async {
+  //   _userData = await _profile.UserProfile();
+  // }
+
+  @override
+  void initState() {
+    // getprofile();
+    _userData = _profile.UserProfile();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,116 +44,21 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
         parallaxOffset: 0.12,
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
         maxHeight: getDeviceHeight(context),
-        minHeight: getDeviceHeight(context) * 0.29,
+        minHeight: getDeviceHeight(context) * 0.30,
         color: Theme.of(context).primaryColor,
         panelBuilder: (controller) {
-          return ListView(
-            scrollDirection: Axis.vertical,
-            controller: controller,
-            children: [
-              Center(
-                child: Container(
-                  margin: EdgeInsets.all(8),
-                  width: 100,
-                  height: 7,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-              Text(
-                "View Profile",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 25,
-                    color: Theme.of(context).highlightColor,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: getDeviceHeight(context) * 0.03,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.account_circle,
-                  size: getDeviceHeight(context) * 0.15,
-                  color: Theme.of(context).highlightColor,
-                ),
-              ),
-              SizedBox(
-                height: getDeviceHeight(context) * 0.05,
-              ),
-              Center(
-                  child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getDeviceWidth(context) * 0.1),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Email ID",
-                        style: TextStyle(
-                            color: Theme.of(context).highlightColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    ),
-                    readOnlyTextField(
-                        "Email Id", Theme.of(context).highlightColor),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Full Name",
-                        style: TextStyle(
-                            color: Theme.of(context).highlightColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    ),
-                    readOnlyTextField(
-                        "Full Name", Theme.of(context).highlightColor),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "USN Number",
-                        style: TextStyle(
-                            color: Theme.of(context).highlightColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    ),
-                    readOnlyTextField("USN", Theme.of(context).highlightColor),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Department",
-                        style: TextStyle(
-                            color: Theme.of(context).highlightColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    ),
-                    readOnlyTextField(
-                        "Department", Theme.of(context).highlightColor),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Semester",
-                        style: TextStyle(
-                            color: Theme.of(context).highlightColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                    ),
-                    readOnlyTextField(
-                        "Semester", Theme.of(context).highlightColor),
-                  ],
-                ),
-              ))
-            ],
-          );
+          return FutureBuilder<StudentProfileModel>(
+              future: _userData,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.data != null) {
+                  profileData = snapshot.data!;
+
+                  return ProfileWidget(
+                      profileData: profileData, controller: controller);
+                } else {
+                  return Center(child: Text("Error : ${snapshot.error}"));
+                }
+              });
         },
         body: Column(
           children: [
@@ -154,7 +78,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                   style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold,
-                      fontSize: 24),
+                      fontSize: 24.sp),
                 ),
                 elevation: 0,
                 backgroundColor: Theme.of(context).highlightColor,
@@ -187,7 +111,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          width: getDeviceWidth(context) * 0.4,
+                          width: getDeviceWidth(context) * 0.5,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -226,7 +150,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          width: getDeviceWidth(context) * 0.4,
+                          width: getDeviceWidth(context) * 0.5,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -266,7 +190,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          width: getDeviceWidth(context) * 0.4,
+                          width: getDeviceWidth(context) * 0.5,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -308,7 +232,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          width: getDeviceWidth(context) * 0.4,
+                          width: getDeviceWidth(context) * 0.5,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -375,6 +299,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                                     onPressed: () async {
                                       SharedPreferences prefs =
                                           await SharedPreferences.getInstance();
+
                                       prefs.remove("token");
                                       Navigator.popAndPushNamed(
                                           context, "/login");
@@ -404,6 +329,128 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ProfileWidget extends StatelessWidget {
+  const ProfileWidget({
+    Key? key,
+    required this.profileData,
+    required this.controller,
+  }) : super(key: key);
+
+  final StudentProfileModel profileData;
+  final controller;
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      scrollDirection: Axis.vertical,
+      controller: controller,
+      children: [
+        Center(
+          // Bar
+          child: Container(
+            margin: EdgeInsets.all(8),
+            width: 100,
+            height: 7,
+            decoration: BoxDecoration(
+                color: Colors.grey, borderRadius: BorderRadius.circular(20)),
+          ),
+        ),
+        Text(
+          "View Profile",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 25,
+              color: Theme.of(context).highlightColor,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+            // height: getDeviceHeight(context) * 0.03,
+            ),
+        Align(
+          alignment: Alignment.center,
+          child: Icon(
+            Icons.account_circle,
+            size: getDeviceHeight(context) * 0.15,
+            color: Theme.of(context).highlightColor,
+          ),
+        ),
+        SizedBox(
+          height: getDeviceHeight(context) * 0.05,
+        ),
+        Center(
+            child: Container(
+          padding:
+              EdgeInsets.symmetric(horizontal: getDeviceWidth(context) * 0.1),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Email",
+                  style: TextStyle(
+                      color: Theme.of(context).highlightColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+              ),
+              readOnlyTextField(
+                  "${profileData.email}", Theme.of(context).highlightColor),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Full Name",
+                  style: TextStyle(
+                      color: Theme.of(context).highlightColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+              ),
+              readOnlyTextField(
+                  profileData.studentName!, Theme.of(context).highlightColor),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "USN Number",
+                  style: TextStyle(
+                      color: Theme.of(context).highlightColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+              ),
+              readOnlyTextField(
+                  profileData.usn!, Theme.of(context).highlightColor),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Department",
+                  style: TextStyle(
+                      color: Theme.of(context).highlightColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+              ),
+              readOnlyTextField(
+                  profileData.department!, Theme.of(context).highlightColor),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Semester",
+                  style: TextStyle(
+                      color: Theme.of(context).highlightColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+              ),
+              readOnlyTextField(
+                  profileData.semester!, Theme.of(context).highlightColor),
+            ],
+          ),
+        ))
+      ],
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/interfaces/register_interface.dart';
+import 'package:student_app/interfaces/signup_interface.dart';
 
 import '../../utils/configurations.dart';
 import '../signup/signup_page.dart';
 import '../../widgets/custom_text_form_field.dart';
-import '../../services/register_service.dart';
+import '../../services/signup_service.dart';
 
 class SignupPagetwo extends StatelessWidget {
   SignupPagetwo(
@@ -21,12 +21,13 @@ class SignupPagetwo extends StatelessWidget {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
-  final Register _register = UserRegister();
+  final Signup _register = UserSignup();
   @override
   Widget build(BuildContext context) {
     final deviceWidth = getDeviceWidth(context);
     final deviceHeight = getDeviceHeight(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).highlightColor,
       body: Center(
         child: Column(
           children: [
@@ -35,7 +36,8 @@ class SignupPagetwo extends StatelessWidget {
             ),
             Text(
               "One last step",
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(
+                  fontSize: 24, color: Theme.of(context).primaryColor),
             ),
             SizedBox(
               height: deviceHeight * 0.05,
@@ -79,7 +81,7 @@ class SignupPagetwo extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       // print(email.text);
-                      _register.StudentRegister(
+                      _register.StudentSignup(
                           email.text,
                           name.text,
                           usn.text,
@@ -87,7 +89,7 @@ class SignupPagetwo extends StatelessWidget {
                           semester.text,
                           password.text,
                           confirmPassword.text);
-                      Navigator.popAndPushNamed(context, '/');
+                      Navigator.popAndPushNamed(context, '/login');
                     },
                     child: Text(
                       "Next",

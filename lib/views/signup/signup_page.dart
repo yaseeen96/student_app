@@ -1,7 +1,7 @@
 //pre-defined imports
 import 'package:flutter/material.dart';
-import 'package:student_app/interfaces/register_interface.dart';
-import 'package:student_app/services/register_service.dart';
+import 'package:student_app/interfaces/signup_interface.dart';
+import 'package:student_app/services/signup_service.dart';
 import 'package:student_app/views/signup/signup_page_two.dart';
 
 //user-defined imports
@@ -19,13 +19,14 @@ class SignupPage extends StatelessWidget {
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
 
-  final Register _register = UserRegister();
+  final Signup _register = UserSignup();
 
   @override
   Widget build(BuildContext context) {
     final deviceWidth = getDeviceWidth(context);
     final deviceHeight = getDeviceHeight(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).highlightColor,
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -36,7 +37,8 @@ class SignupPage extends StatelessWidget {
               Center(
                 child: Text(
                   "Fill the below details",
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(
+                      fontSize: 24, color: Theme.of(context).primaryColor),
                 ),
               ),
               SizedBox(

@@ -1,82 +1,119 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
+import 'package:student_app/interfaces/event_image_interface.dart';
+
+import 'package:student_app/models/event_image_model.dart';
+import 'package:student_app/services/event_image_service.dart';
 
 import 'package:student_app/utils/configurations.dart';
 
-class EventPictures extends StatelessWidget {
-  EventPictures({super.key});
+import '../../models/events_model.dart';
+
+class EventPictures extends StatefulWidget {
+  EventPictures({super.key, required this.eventId});
+
+  final int eventId;
+  @override
+  State<EventPictures> createState() => _EventPicturesState();
+}
+
+class _EventPicturesState extends State<EventPictures> {
+  late Future<List<EventsImageModel>> _data;
+
+  final ImageList _eventImage = EventImageList();
+  late List<EventsImageModel> imageList;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    _data = _eventImage.getEventsImage();
+  }
 
   @override
   Widget build(BuildContext context) {
     // defining event images list
-    final List<Widget> eventImages = [
-      EventImageView(
-        image:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5_f-3Npwnj40B6u8O8WmcX8swxRqUS8ncQg&usqp=CAU',
-      ),
-      EventImageView(
-        image:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5_f-3Npwnj40B6u8O8WmcX8swxRqUS8ncQg&usqp=CAU',
-      ),
-      EventImageView(
-        image:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5_f-3Npwnj40B6u8O8WmcX8swxRqUS8ncQg&usqp=CAU',
-      ),
-      EventImageView(
-        image:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5_f-3Npwnj40B6u8O8WmcX8swxRqUS8ncQg&usqp=CAU',
-      ),
-      EventImageView(
-        image:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5_f-3Npwnj40B6u8O8WmcX8swxRqUS8ncQg&usqp=CAU',
-      ),
-      EventImageView(
-        image:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5_f-3Npwnj40B6u8O8WmcX8swxRqUS8ncQg&usqp=CAU',
-      ),
-      EventImageView(
-        image:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5_f-3Npwnj40B6u8O8WmcX8swxRqUS8ncQg&usqp=CAU',
-      ),
-      EventImageView(
-        image:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5_f-3Npwnj40B6u8O8WmcX8swxRqUS8ncQg&usqp=CAU',
-      ),
-      EventImageView(
-        image:
-            'https://img.freepik.com/free-photo/beautiful-wide-shot-eiffel-tower-paris-surrounded-by-water-with-ships-colorful-sky_181624-5118.jpg?w=2000',
-      ),
-    ];
+
+    late List<Widget> eventImages = [];
 
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            color: Theme.of(context).primaryColor,
-            icon: Icon(Icons.arrow_back_rounded),
-            onPressed: () => Navigator.pop(context, true),
-          ),
-          backgroundColor: Theme.of(context).highlightColor,
-          title: Text(
-            "Event Pictures",
-            style: TextStyle(color: Theme.of(context).primaryColor),
-          )),
-      body: GridView.count(
-        scrollDirection: Axis.vertical,
-        crossAxisCount: 3,
-        children: eventImages,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          color: Theme.of(context).primaryColor,
+          icon: Icon(Icons.arrow_back_rounded),
+          onPressed: () => Navigator.pop(context, true),
+        ),
+        backgroundColor: Theme.of(context).highlightColor,
+        title: Text(
+          "Event Pictures",
+          style: TextStyle(color: Theme.of(context).primaryColor),
+        ),
       ),
+      body: FutureBuilder<List<EventsImageModel>>(
+          future: _data,
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              imageList = snapshot.data!;
+              print("Image List : ${imageList}");
+              return GridView.count(
+                crossAxisCount: 2,
+                scrollDirection: Axis.vertical,
+                children: imageList
+                    .map((e) => EventImageView(dataList: e))
+                    .where((element) =>
+                        element.dataList.event!.id == widget.eventId)
+                    .toList(),
+              );
+            } else if (snapshot.data == null) {
+              return Center(
+                  child: Text(
+                "No Data",
+                style: TextStyle(color: Theme.of(context).primaryColor),
+              ));
+            }
+            return Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
+              ),
+            );
+          }
+
+          //   if (snapshot != null) {
+          //     return GridView.count(
+          //       crossAxisCount: 2,
+          //       scrollDirection: Axis.vertical,
+          //       children: imageList
+          //           .map((e) => EventImageView(dataList: e))
+          //           .where(
+          //               (element) => element.dataList.event!.id == widget.eventId)
+          //           .toList(),
+          //     );
+          //   } else if (snapshot.data == null) {
+          //     return Center(
+          //         child: Text(
+          //       "No Data",
+          //       style: TextStyle(color: Theme.of(context).primaryColor),
+          //     ));
+          //   } else
+          //     return Center(
+          //       child: CircularProgressIndicator(
+          //         color: Theme.of(context).primaryColor,
+          //       ),
+          //     );
+          // },
+          ),
       backgroundColor: Theme.of(context).highlightColor,
     );
   }
 }
 
 class EventImageView extends StatelessWidget {
-  const EventImageView({Key? key, required this.image}) : super(key: key);
+  const EventImageView({Key? key, required this.dataList}) : super(key: key);
 
-  final String image;
+  final EventsImageModel dataList;
+
   @override
   Widget build(BuildContext context) {
     return FullScreenWidget(
@@ -86,7 +123,9 @@ class EventImageView extends StatelessWidget {
           width: getDeviceWidth(context),
           height: getDeviceHeight(context) * 0.5,
           child: Image.network(
-            image,
+            width: 20,
+            height: 10,
+            "${dataList.eventImage}",
             fit: BoxFit.cover,
           ),
         ),

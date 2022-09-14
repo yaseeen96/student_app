@@ -1,4 +1,4 @@
-class StudentRegisterModel {
+class StudentSignupModel {
   String? email;
   String? studentName;
   String? usn;
@@ -7,7 +7,7 @@ class StudentRegisterModel {
   String? password;
   String? password2;
 
-  StudentRegisterModel(
+  StudentSignupModel(
       {this.email,
       this.studentName,
       this.usn,
@@ -16,7 +16,7 @@ class StudentRegisterModel {
       this.password,
       this.password2});
 
-  StudentRegisterModel.fromJson(Map<String, dynamic> json) {
+  StudentSignupModel.fromJson(Map<String, dynamic> json) {
     email = json['email'];
     studentName = json['studentName'];
     usn = json['usn'];
@@ -39,8 +39,8 @@ class StudentRegisterModel {
     return data;
   }
 
-  factory StudentRegisterModel.fromMap(Map<String, dynamic> map) {
-    return StudentRegisterModel(
+  factory StudentSignupModel.fromMap(Map<String, dynamic> map) {
+    return StudentSignupModel(
       email: map['email']?.toString() ?? '',
       studentName: map['studentName']?.toString() ?? '',
       usn: map['usn']?.toString() ?? '',

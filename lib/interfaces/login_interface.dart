@@ -10,7 +10,8 @@ abstract class Login {
     try {
       // for android use 10.0.2.2/8000
       // for iOS use 127.0.0.1/8000
-      final url = "http://127.0.0.1:8000/studentapi/student/login/";
+      const url =
+          "https://c08gjwvlm3.execute-api.ap-south-1.amazonaws.com/student/studentapi/student/login/";
       final data = {
         "email": email,
         "password": password,

@@ -57,11 +57,10 @@ class HomePage extends StatelessWidget {
             height: deviceHeight * 0.05,
           ),
           customButton(
-            deviceHeight: deviceHeight,
-            deviceWidth: deviceWidth,
-            text: "Login",
-            onPressPage: "/login",
-          ),
+              deviceHeight: deviceHeight,
+              deviceWidth: deviceWidth,
+              text: "Login",
+              onTap: Navigator.pushNamed(context, "/login")),
         ],
       ),
     );
