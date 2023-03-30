@@ -19,13 +19,13 @@ This is a Flutter application developed for the students of PDA College of Engin
 </div>
 
 <div style="display:flex;">
-  <img src="![preferences](https://user-images.githubusercontent.com/53128093/228921948-ff59a1a2-d6a9-4aa2-ac41-210b33deab55.PNG)" alt="preferences" width="50%">
-  <img src="![logout](https://user-images.githubusercontent.com/53128093/228921984-8c04c10c-0611-41ca-99fe-0ae7cd7793b0.PNG)" alt="logout" width="50%">
+  <img src="https://user-images.githubusercontent.com/53128093/228921948-ff59a1a2-d6a9-4aa2-ac41-210b33deab55.PNG" alt="preferences" width="50%">
+  <img src="https://user-images.githubusercontent.com/53128093/228921984-8c04c10c-0611-41ca-99fe-0ae7cd7793b0.PNG" alt="logout" width="50%">
 </div>
 
 <div style="display:flex;">
-  <img src="![signup 1](https://user-images.githubusercontent.com/53128093/228921996-e0908941-2440-4a9e-b9e3-878812339cb5.PNG)" alt="signup 1" width="50%">
-  <img src="![signup 2](https://user-images.githubusercontent.com/53128093/228922012-59080c89-7ccc-4bae-a4b6-a237bc6ccab2.PNG)" alt="signup 2" width="50%">
+  <img src="https://user-images.githubusercontent.com/53128093/228921996-e0908941-2440-4a9e-b9e3-878812339cb5.PNG" alt="signup 1" width="50%">
+  <img src="https://user-images.githubusercontent.com/53128093/228922012-59080c89-7ccc-4bae-a4b6-a237bc6ccab2.PNG" alt="signup 2" width="50%">
 </div>
 
 
@@ -36,7 +36,7 @@ This is a Flutter application developed for the students of PDA College of Engin
 
 
 ## Contributors
-Syed Yaseen Raza
-Venkatesh Patil @ven-p1
+Syed Yaseen Raza <br>
+Venkatesh Patil @ven-p1 <br>
 Spoorti Patil
 
