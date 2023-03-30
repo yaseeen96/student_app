@@ -37,6 +37,6 @@ This is a Flutter application developed for the students of PDA College of Engin
 
 ## Contributors
 Syed Yaseen Raza <br>
-Venkatesh Patil @ven-p1 <br>
-Spoorti Patil
+Venkatesh Patil [https://github.com/ven-p1] <br>
+Spoorti Patil[https://github.com/spoortip02]
 
