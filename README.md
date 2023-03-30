@@ -12,10 +12,10 @@ This is a Flutter application developed for the students of PDA College of Engin
 2. Register for college events.
 3. Login and Signup options for authentication.
 
-Screenshots
+## Screenshots
 
 
-Contributors
+## Contributors
 Syed Yaseen Raza
 Venkatesh Patil @ven-p1
 Spoorti Patil
