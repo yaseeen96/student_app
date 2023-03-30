@@ -1,16 +1,22 @@
-# student_app
+# Student App
+This is a Flutter application developed for the students of PDA College of Engineering, Kalaburagi. It allows students to view details of college events and register for them with the click of a button. The app also includes login and signup options for authentication.
 
-A new Flutter project.
+## Tech Stack
+1. Flutter
+2. Installation
+## Clone the repository.
+1. Run flutter pub get to install the required dependencies.
+2. Run the app using flutter run command.
+## Features
+1. View details of college events.
+2. Register for college events.
+3. Login and Signup options for authentication.
 
-## Getting Started
+Screenshots
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+Contributors
+Syed Yaseen Raza
+Venkatesh Patil @ven-p1
+Spoorti Patil
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
