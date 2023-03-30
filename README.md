@@ -1,12 +1,12 @@
 # Student App
-This is a Flutter application developed for the students of PDA College of Engineering, Kalaburagi. It allows students to view details of college events and register for them with the click of a button. The app also includes login and signup options for authentication.
+This is a Flutter application developed for the students of PDA College of Engineering, Kalaburagi. It allows students to view details of college events and register for them with the click of a button. The app also includes login and signup options for authentication. It is built on top of REST API Developed using Django Rest Framework.
 
 ## Tech Stack
 1. Flutter
-2. Installation
-## Clone the repository.
-1. Run flutter pub get to install the required dependencies.
-2. Run the app using flutter run command.
+## Installation
+1. Clone the repository.
+2. Run flutter pub get to install the required dependencies.
+3. Run the app using flutter run command.
 ## Features
 1. View details of college events.
 2. Register for college events.
