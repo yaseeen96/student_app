@@ -14,8 +14,8 @@ This is a Flutter application developed for the students of PDA College of Engin
 
 ## Screenshots
 <div style="display:flex;">
-  <img src="https://user-images.githubusercontent.com/53128093/228921835-1beec8aa-3fe0-4871-a135-efcc75d29ab8.PNG" alt="Login" width="50%">
-  <img src="https://user-images.githubusercontent.com/53128093/228921890-3c24a23d-f384-489b-a2a0-a7c9a651c17f.PNG" alt="Home" width="50%">
+  <img src="https://user-images.githubusercontent.com/53128093/228921835-1beec8aa-3fe0-4871-a135-efcc75d29ab8.PNG" alt="Login" width="40%">
+  <img src="https://user-images.githubusercontent.com/53128093/228921890-3c24a23d-f384-489b-a2a0-a7c9a651c17f.PNG" alt="Home" width="40%">
 </div>
 
 <div style="display:flex;">
